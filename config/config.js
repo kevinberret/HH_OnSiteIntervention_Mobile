@@ -1,0 +1,1 @@
+export default SERVER_URL = 'https://onsiteintervention.herokuapp.com/';
