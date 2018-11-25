@@ -10,7 +10,7 @@ import {
     Right,
     Body,
     ListItem
-  } from "native-base";
+} from "native-base";
 
 import moment from 'moment';
 
@@ -23,9 +23,9 @@ class InterventionsList extends Component {
 
     _keyExtractor = (item, index) => index.toString();
 
-    _renderItem = ({item}) => {
+    _renderItem = ({ item }) => {
         // compute start time and estimated endtime of intervention
-        const startTime = moment(item.date + ' ' +item.time);
+        const startTime = moment(item.date + ' ' + item.time);
         const endTime = moment(startTime).add(moment.duration(item.duration));
 
         return (
@@ -52,7 +52,7 @@ class InterventionsList extends Component {
                         renderItem={this._renderItem}
                     />
                 </Content>
-            </Container> 
+            </Container>
         );
     }
 }
@@ -62,7 +62,7 @@ const mapStateToProps = state => {
         interventions: state.interventions,
     };
 }
-  
+
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllInterventions: () => dispatch(getAllInterventions())

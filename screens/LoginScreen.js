@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleProvider, Container, Header, Title, Content, Icon , Badge, Button, Right, Body, Text, Form, Item, Input, Label } from 'native-base';
-//import getTheme from '../native-base-theme/components';
+import { Container, Content , Button, Text, Form, Item, Input, Label } from 'native-base';
 import { connect } from 'react-redux';
 
 import { login } from '../actions/login';
 
 class LoginScreen extends React.Component {
-    static navigationOptions = {
+    /*static navigationOptions = {
         header: null,
-    };
+    };*/
 
     constructor(props){
         super(props);
@@ -22,19 +21,13 @@ class LoginScreen extends React.Component {
     componentDidUpdate() {
         // if login was successful => redirect user to homepage
         if(this.props.auth.token){
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('drawerStack')
         }
     }
 
     render() {
         return ( 
                 <Container>
-                    <Header>
-                        <Body>
-                        <Title>Login</Title>
-                        </Body>
-                        <Right />
-                    </Header>
                     <Content padder>
                         <Form>
                             <Item floatingLabel>
