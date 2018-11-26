@@ -111,17 +111,6 @@ class InterventionDetails extends Component {
                                 <Icon name="arrow-forward" />
                             </Right>
                         </CardItem>
-                        <CardItem footer bordered>
-                            <Icon active name="trash"/>
-                            <Text
-                                onPress={() => this.props.navigation.navigate('Edit intervention')}
-                            >
-                                Delete intervention
-                            </Text>
-                            <Right>
-                                <Icon name="arrow-forward" />
-                            </Right>
-                        </CardItem>
                     </Card>
                 </Content>
             </Container>
