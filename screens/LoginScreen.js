@@ -1,6 +1,9 @@
 import React from 'react';
-import { Container, Content , Button, Text, Form, Item, Input, Label } from 'native-base';
+import { Container, Content , Button, Text, Form, Item, Input, Left, Right, Body, Label, Spinner } from 'native-base';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
+
+import Colors from '../constants/Colors';
 
 import { login } from '../actions/login';
 
@@ -59,14 +62,20 @@ class LoginScreen extends React.Component {
                             onPress={() => this.props.login(this.state.username, this.state.password)}>
                             <Text>Sign in</Text>
                         </Button>
-                        {(this.props.auth.loginFailed) ?
-                        <div>
-                            <Text>Wrong username and/or password!</Text>
-                        </div>
+                        {(this.props.auth.loginAttempt) ?
+                        <Container>
+                            <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flex:1}}>
+                                    <Spinner color={Colors.headerBackground} />
+                                </View>
+                                <View style={{flex:1}}>
+                                    <Text>Please wait...</Text>
+                                </View>
+                            </View>
+                        </Container>
                         :
                         null
-                        }
-                        <Text>{this.props.auth.token}</Text>
+                        }                        
                     </Content>
                 </Container>
         );

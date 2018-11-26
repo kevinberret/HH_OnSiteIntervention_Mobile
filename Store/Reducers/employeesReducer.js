@@ -2,20 +2,21 @@ import ActionTypes from '../actionTypes';
 
 const initialState = {
     isLoading:false,
-    list:[]    
+    list:[],
+    current: null,  
 };
 
-export default function interventions(state = initialState, action) {
+export default function employees(state = initialState, action) {
     let nextState
     switch (action.type) {
-        case ActionTypes.GET_ALL_INTERVENTIONS_REQ:
+        case ActionTypes.GET_ALL_EMPLOYEES_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.GET_ALL_INTERVENTIONS_OK:
+        case ActionTypes.GET_ALL_EMPLOYEES_OK:
             nextState = {
                 ...state,
                 isLoading:false,
@@ -23,21 +24,21 @@ export default function interventions(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.GET_ALL_INTERVENTIONS_ERR:
+        case ActionTypes.GET_ALL_EMPLOYEES_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-            case ActionTypes.GET_INTERVENTION_BY_ID_REQ:
+        case ActionTypes.GET_EMPLOYEE_BY_ID_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.GET_INTERVENTION_BY_ID_OK:
+        case ActionTypes.GET_EMPLOYEE_BY_ID_OK:
             nextState = {
                 ...state,
                 isLoading:false,
@@ -45,84 +46,84 @@ export default function interventions(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.GET_INTERVENTION_BY_ID_ERR:
+        case ActionTypes.GET_EMPLOYEE_BY_ID_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.SET_CURRENT_INTERVENTION:
+        case ActionTypes.SET_CURRENT_EMPLOYEE:
             nextState = {
                 ...state,
                 current:action.current,
             }
             return nextState || state;
 
-        case ActionTypes.RESET_CURRENT_INTERVENTION:
+        case ActionTypes.RESET_CURRENT_EMPLOYEE:
             nextState = {
                 ...state,
                 current:null,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_REQ:
+        case ActionTypes.CREATE_EMPLOYEE_REQ:
             nextState = {
                 ...state,
                 isLoading: true,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_OK:
+        case ActionTypes.CREATE_EMPLOYEE_OK:
             nextState = {
                 ...state,
                 isLoading: false,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_ERR:
+        case ActionTypes.CREATE_EMPLOYEE_ERR:
             nextState = {
                 ...state,
                 isLoading: false,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_REQ:
+        case ActionTypes.UPDATE_EMPLOYEE_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_OK:
+        case ActionTypes.UPDATE_EMPLOYEE_OK:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_ERR:
+        case ActionTypes.UPDATE_EMPLOYEE_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_REQ:
+        case ActionTypes.DELETE_EMPLOYEE_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_OK:
+        case ActionTypes.DELETE_EMPLOYEE_OK:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_ERR:
+        case ActionTypes.DELETE_EMPLOYEE_ERR:
             nextState = {
                 ...state,
                 isLoading:false,

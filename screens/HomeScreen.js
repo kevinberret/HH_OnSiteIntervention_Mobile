@@ -1,42 +1,30 @@
 import React from 'react';
 import { Container, Content } from 'native-base';
-import { connect } from 'react-redux';
+import { BackHandler } from 'react-native';
 
-import { logout } from '../actions/login';
+import { showFlashMessage } from '../actions/utils';
 
-import InterventionsList from '../components/interventions/InterventionsList'
+import InterventionsCalendar from '../components/interventions/InterventionsCalendar';
 
 class HomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
-        this.state = {
-            username: '',
-            password: ''
-        }
+    handleBackButton() {
+        showFlashMessage('Info', 'Please logout instead of using back button.', 'info');
+        return true;
     }
 
     render() {
         return (
             <Container>
                 <Content>
-                    <InterventionsList />
+                    
                 </Content>
             </Container>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    };
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logout: () => { dispatch(logout()) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

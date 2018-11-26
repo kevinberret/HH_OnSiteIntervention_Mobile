@@ -1,21 +1,22 @@
 import ActionTypes from '../actionTypes';
 
 const initialState = {
-    isLoading:false,
-    list:[]    
+    isLoading: false,
+    list: [],
+    current: null,
 };
 
-export default function interventions(state = initialState, action) {
+export default function customers(state = initialState, action) {
     let nextState
     switch (action.type) {
-        case ActionTypes.GET_ALL_INTERVENTIONS_REQ:
+        case ActionTypes.GET_ALL_CUSTOMERS_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.GET_ALL_INTERVENTIONS_OK:
+        case ActionTypes.GET_ALL_CUSTOMERS_OK:
             nextState = {
                 ...state,
                 isLoading:false,
@@ -23,21 +24,21 @@ export default function interventions(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.GET_ALL_INTERVENTIONS_ERR:
+        case ActionTypes.GET_ALL_CUSTOMERS_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-            case ActionTypes.GET_INTERVENTION_BY_ID_REQ:
+        case ActionTypes.GET_CUSTOMER_BY_ID_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.GET_INTERVENTION_BY_ID_OK:
+        case ActionTypes.GET_CUSTOMER_BY_ID_OK:
             nextState = {
                 ...state,
                 isLoading:false,
@@ -45,90 +46,90 @@ export default function interventions(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.GET_INTERVENTION_BY_ID_ERR:
+        case ActionTypes.GET_CUSTOMER_BY_ID_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.SET_CURRENT_INTERVENTION:
+        case ActionTypes.SET_CURRENT_CUSTOMER:
             nextState = {
                 ...state,
                 current:action.current,
             }
             return nextState || state;
 
-        case ActionTypes.RESET_CURRENT_INTERVENTION:
+        case ActionTypes.RESET_CURRENT_CUSTOMER:
             nextState = {
                 ...state,
                 current:null,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_REQ:
+        case ActionTypes.CREATE_CUSTOMER_REQ:
             nextState = {
                 ...state,
                 isLoading: true,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_OK:
+        case ActionTypes.CREATE_CUSTOMER_OK:
             nextState = {
                 ...state,
                 isLoading: false,
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_INTERVENTION_ERR:
+        case ActionTypes.CREATE_CUSTOMER_ERR:
             nextState = {
                 ...state,
                 isLoading: false,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_REQ:
+        case ActionTypes.UPDATE_CUSTOMER_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_OK:
+        case ActionTypes.UPDATE_CUSTOMER_OK:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.UPDATE_INTERVENTION_ERR:
+        case ActionTypes.UPDATE_CUSTOMER_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_REQ:
+        case ActionTypes.DELETE_CUSTOMER_REQ:
             nextState = {
                 ...state,
                 isLoading:true,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_OK:
+        case ActionTypes.DELETE_CUSTOMER_OK:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_INTERVENTION_ERR:
+        case ActionTypes.DELETE_CUSTOMER_ERR:
             nextState = {
                 ...state,
                 isLoading:false,
             }
             return nextState || state;
-
+        
         default:
             return state;
     }

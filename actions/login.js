@@ -1,6 +1,8 @@
 import ActionTypes from '../Store/actionTypes';
 
-import SERVER_URL from '../config/config'
+import SERVER_URL from '../config/config';
+
+import { showFlashMessage } from './utils';
 
 export const login_REQ = (username, password) => (
     {
@@ -37,7 +39,7 @@ export const login = (username, password) => {
         console.log(username)
         if(!auth.loginAttempt){
             dispatch(login_REQ(username, password));
-
+            console.log(SERVER_URL); 
             fetch(
                 SERVER_URL+'api/login',
                 {
@@ -61,12 +63,12 @@ export const login = (username, password) => {
                 ({ headers, status, json }) => {
                     if(status >= 500){
                         // error occured
-                        console.log('server error')
+                        showFlashMessage('Error', 'Server error. Please try again.', 'danger');
                         dispatch(login_ERR());
                     }
                     else if(status >= 400){
                         // error occured
-                        console.log('wrong password/username')
+                        showFlashMessage('Error', 'Authentication error. Check your username/password.', 'danger');
                         dispatch(login_ERR());
                     }else{
                         // Status looks good
@@ -74,14 +76,15 @@ export const login = (username, password) => {
                         const user = json;
 
                         if(token !== null){
+                            showFlashMessage('Success', 'Welcome.', 'success');
                             dispatch(login_OK(token, user));
                         }
                     }
                 },
                 // Either fetching or parsing failed!
                 err => {
+                    showFlashMessage('Error', 'Server error. Please try again.', 'danger');
                     dispatch(login_ERR());
-                    console.log(err);
                 }
             );
         }
