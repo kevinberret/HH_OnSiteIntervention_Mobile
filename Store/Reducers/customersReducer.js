@@ -129,6 +129,10 @@ export default function customers(state = initialState, action) {
                 isLoading:false,
             }
             return nextState || state;
+
+        case ActionTypes.RESET_CUSTOMER_REDUCER:
+            nextState = initialState
+            return nextState || state;
         
         default:
             return state;

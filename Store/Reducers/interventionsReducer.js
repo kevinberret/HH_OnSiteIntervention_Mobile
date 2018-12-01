@@ -1,8 +1,9 @@
 import ActionTypes from '../actionTypes';
 
 const initialState = {
-    isLoading:false,
-    list:[]    
+    isLoading: false,
+    list: [],
+    current: null
 };
 
 export default function interventions(state = initialState, action) {
@@ -127,6 +128,10 @@ export default function interventions(state = initialState, action) {
                 ...state,
                 isLoading:false,
             }
+            return nextState || state;
+
+        case ActionTypes.RESET_INTERVENTION_REDUCER:
+            nextState = initialState
             return nextState || state;
 
         default:

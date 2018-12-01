@@ -1,27 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content } from 'native-base';
+import { Container, Icon } from 'native-base';
 
 import InterventionEdit from '../../components/interventions/InterventionEdit';
-import { updateIntervention } from '../../actions/interventions';
+import { updateIntervention, deleteIntervention } from '../../actions/interventions';
 
 class InterventionEditScreen extends Component {
-    componentDidMount(){console.log(this.props.current)}
+    static navigationOptions = ({ navigation }) => ({
+        title: "Edit intervention informations",
+        headerRight: <Icon name="trash" style={{marginRight:30, color:'white'}} onPress={() => navigation.state.params.deleteIntervention()} />,
+    })
+
+    componentDidMount() {
+        this.props.navigation.setParams({
+            deleteIntervention: () => this.props.deleteIntervention(this.props.current._links.self.href)
+        });
+    }
+
     render() {
         return (
             <Container>
-                <Content>
-                    <InterventionEdit
-                        onSubmit={(values) => {this.props.updateIntervention(this.props.current._links.self.href, values); this.props.navigation.navigate('Home');}}
-                        initialValues={{
-                            description: this.props.current.description,
-                            materialNeeded: this.props.current.materialNeeded,
-                            phoneNumber: this.props.current.phoneNumber,
-                            feedback: this.props.current.feedback
-                        }}
-                        update={true}
-                    />
-                </Content>
+                <InterventionEdit
+                    onSubmit={(values) => {console.log(values);this.props.updateIntervention(this.props.current._links.self.href, values);}}
+                    initialValues={{
+                        date: this.props.current.date,
+                        description: this.props.current.description,
+                        done: this.props.current.done,
+                        duration: this.props.current.duration,
+                        feedback: this.props.current.feedback,
+                        materialNeeded: this.props.current.materialNeeded,
+                        phoneNumber: this.props.current.phoneNumber,
+                        signature: this.props.current.signature,
+                        time: this.props.current.time                        
+                    }}
+                    update={true}
+                />
             </Container>
         );
     }
@@ -35,7 +48,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateIntervention : (link, intervention) => dispatch(updateIntervention(link, intervention))
+        updateIntervention : (link, intervention) => dispatch(updateIntervention(link, intervention)),
+        deleteIntervention : (link) => dispatch(deleteIntervention(link))        
     }
 }
 

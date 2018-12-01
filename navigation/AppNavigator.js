@@ -2,16 +2,17 @@ import React from 'react';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 // CUSTOMERS
 import CustomersListScreen from '../screens/Customers/CustomersListScreen';
 import CustomerAddScreen from '../screens/Customers/CustomerAddScreen';
 import CustomerDetailsScreen from '../screens/Customers/CustomerDetailsScreen';
+import CustomerEditScreen from '../screens/Customers/CustomerEditScreen';
 
 // EMPLOYEES
 import EmployeesListScreen from '../screens/Employees/EmployeesListScreen';
 import EmployeeDetailsScreen from '../screens/Employees/EmployeeDetailsScreen';
-import EmployeeAddScreen from '../screens/Employees/EmployeeAddScreen';
 
 // INTERVENTIONS
 import InterventionsListScreen from '../screens/Interventions/InterventionsListScreen';
@@ -20,80 +21,161 @@ import InterventionEditScreen from '../screens/Interventions/InterventionEditScr
 
 import Colors from '../constants/Colors';
 
-import { Icon } from 'native-base';
-
 import DrawerMenu from '../components/DrawerMenu';
 
-// drawer stack
-const DrawerStack = createDrawerNavigator(
+// adding different stack navigators for customers, employees and interventions
+const HomeStack = createStackNavigator(
     {
-        'Home': { 
+        Home: { 
             screen: HomeScreen
-        },
-        'My interventions':{
-            screen: InterventionsListScreen
-        },
-        'Intervention details':{
-            screen: InterventionDetailsScreen
-        },
-        'Edit intervention':{
-            screen: InterventionEditScreen
-        },
-        'Customers': { 
-            screen: CustomersListScreen
-        },
-        'Customer details':{
-            screen: CustomerDetailsScreen
-        },
-        'New customer':{
-            screen: CustomerAddScreen
-        },
-        'Employees': { 
-            screen: EmployeesListScreen
-        },
-        'Employee details':{
-            screen: EmployeeDetailsScreen
-        },
-        'New employee':{
-            screen: EmployeeAddScreen
-        },
-    }, 
+        }
+    },
     {
-        gesturesEnabled: false,
-        contentComponent: (props) => <DrawerMenu {...props} />
-    }
-)
-
-DrawerStack.navigationOptions = ({navigation}) => {
-    const { routeName } = navigation.state.routes[navigation.state.index];
-
-    // You can do whatever you like here to pick the title based on the route name
-    const headerTitle = routeName;
-
-    return {
-        headerTitle,
-    };
-}
-
-const DrawerNavigation = createStackNavigator(
-    {
-        DrawerStack: { screen: DrawerStack }
-    }, 
-    {
-        headerMode: 'float',
+        initialRouteName: 'Home',
         navigationOptions: ({navigation}) => (            
             {
                 headerStyle: {
                     backgroundColor: Colors.headerBackground
                 },
-                headerTitle: navigation.state.routeName,
-                headerTintColor: 'white',
-                headerLeft: <Icon name="menu" style={{marginLeft:30, color:'white'}} onPress={() => navigation.toggleDrawer()} />,
+                headerTintColor: 'white',               
                 headerForceInset:{
                     top:'never' // remove unnecessary padding in header
                 }
             }
         )
+    }
+);
+
+const ProfileStack = createStackNavigator(
+    {
+        Profile: { 
+            screen: ProfileScreen
+        }
+    },
+    {
+        initialRouteName: 'Profile',
+        navigationOptions: ({navigation}) => (            
+            {
+                headerStyle: {
+                    backgroundColor: Colors.headerBackground
+                },
+                headerTintColor: 'white',               
+                headerForceInset:{
+                    top:'never' // remove unnecessary padding in header
+                }
+            }
+        )
+    }
+);
+
+// adding different stack navigators for customers, employees and interventions
+const CustomerStack = createStackNavigator(
+    {
+        CustomersList: { 
+            screen: CustomersListScreen
+        },
+        CustomerDetails:{
+            screen: CustomerDetailsScreen
+        },
+        CustomerAdd:{
+            screen: CustomerAddScreen
+        },
+        CustomerEdit:{
+            screen: CustomerEditScreen
+        }
+    },
+    {
+        initialRouteName: 'CustomersList',
+        navigationOptions: ({navigation}) => (            
+            {
+                headerStyle: {
+                    backgroundColor: Colors.headerBackground
+                },
+                headerTintColor: 'white',               
+                headerForceInset:{
+                    top:'never' // remove unnecessary padding in header
+                }
+            }
+        )
+    }
+);
+
+const EmployeesStack = createStackNavigator(
+    {
+        EmployeesList: { 
+            screen: EmployeesListScreen
+        },
+        EmployeeDetails:{
+            screen: EmployeeDetailsScreen
+        }
+    },
+    {
+        initialRouteName: 'EmployeesList',
+        navigationOptions: ({navigation}) => (            
+            {
+                headerStyle: {
+                    backgroundColor: Colors.headerBackground
+                },
+                headerTintColor: 'white',               
+                headerForceInset:{
+                    top:'never' // remove unnecessary padding in header
+                }
+            }
+        )
+    }
+);
+
+const InterventionsStack = createStackNavigator(
+    {
+        InterventionsList: { 
+            screen: InterventionsListScreen
+        },
+        InterventionDetails:{
+            screen: InterventionDetailsScreen
+        },
+        InterventionEdit:{
+            screen: InterventionEditScreen
+        }
+    },
+    {
+        initialRouteName: 'InterventionsList',
+        navigationOptions: ({navigation}) => (            
+            {
+                headerStyle: {
+                    backgroundColor: Colors.headerBackground
+                },
+                headerTintColor: 'white',               
+                headerForceInset:{
+                    top:'never' // remove unnecessary padding in header
+                }
+            }
+        )
+    }
+);
+
+// drawer stack
+const DrawerStack = createDrawerNavigator(
+    {
+        Home: { 
+            screen: HomeStack
+        },
+        Profile:{
+            screen: ProfileStack
+        },
+        Customers:{
+            screen: CustomerStack
+        },
+        Employees:{
+            screen: EmployeesStack
+        },
+        Interventions: {
+            screen: InterventionsStack
+        },
+    }, 
+    {
+        gesturesEnabled: false,
+        initialRouteName: 'Home',
+        contentComponent: (props) => <DrawerMenu {...props} />,
     }
 )
 
@@ -127,7 +209,7 @@ const PrimaryNav = createStackNavigator(
             screen: LoginStack 
         },
         drawerStack: { 
-            screen: DrawerNavigation 
+            screen: DrawerStack 
         }
     },
     {
@@ -139,3 +221,5 @@ const PrimaryNav = createStackNavigator(
 );
 
 export default PrimaryNav;
+
+//export default DrawerStack;

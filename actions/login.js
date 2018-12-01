@@ -3,6 +3,9 @@ import ActionTypes from '../Store/actionTypes';
 import SERVER_URL from '../config/config';
 
 import { showFlashMessage } from './utils';
+import { resetCustomerReducer } from './customers';
+import { resetEmployeeReducer } from './employees';
+import { resetInterventionReducer } from './interventions';
 
 export const login_REQ = (username, password) => (
     {
@@ -94,5 +97,10 @@ export const login = (username, password) => {
 export const logout = () => {
     return async(dispatch, getState) => {
         dispatch(logout_REQ());
+
+        // reset the store
+        dispatch(resetCustomerReducer());
+        dispatch(resetEmployeeReducer());
+        dispatch(resetInterventionReducer());
     }
 }

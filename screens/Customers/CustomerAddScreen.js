@@ -1,43 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content } from 'native-base';
+import { Container } from 'native-base';
 
-import CustomerDetails from '../../components/customers/CustomerDetails';
+import CustomerEdit from '../../components/customers/CustomerEdit';
 import { createCustomer } from '../../actions/customers'
 
 class CustomerAddScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: "Add a new customer"
+    })
+
     render() {
         return (
             <Container>
-                <Content>
-                    <CustomerDetails
-                        onSubmit={(values) => {
-                            this.props.createCustomer(values);
-                        }}
-                        initialValues={{
-                            firstname: '',
-                            lastname: '',
-                            address:{
-                                city: '',
-                                latitude: 0,
-                                longitude: 0,
-                                number: '',
-                                street: '',
-                                zip: ''
-                            }
-                        }}
-                        update={false}
-                    />
-                </Content>
+                <CustomerEdit
+                    onSubmit={(values) => {
+                        this.props.createCustomer(values);
+                    }}
+                    update={false}
+                />
             </Container>
         );
     }
-}
-
-const mapStateToProps = state => {
-    return {
-        actionFailed: state.customers.actionFailed,
-    };
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -46,4 +30,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerAddScreen);
+export default connect(null, mapDispatchToProps)(CustomerAddScreen);

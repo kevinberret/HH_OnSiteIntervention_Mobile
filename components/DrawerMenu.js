@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StackActions, NavigationActions } from 'react-navigation'
-import { View } from 'react-native';
 
 import { Content, List, ListItem, Body, Left, Right, Text, Header, Icon } from 'native-base';
 import Colors from '../constants/Colors';
@@ -24,17 +23,22 @@ class DrawerMenu extends Component {
         this.props.navigation.dispatch(actionToDispatch);
     }
     
-    _displayUserInfo = () => {
+    _displayUserInfo = (navigation) => {
         if(this.props.auth.user){
             return (
                 <Header
-                    style={{backgroundColor:Colors.headerBackground, flex:1, flexDirection:'row', alignItems:'center'}}
+                    style={{backgroundColor:Colors.headerBackground, flex:1, flexDirection:'row', alignItems:'center'}}                    
                 >
                     <Left style={{flex:1}}>
                         <Icon name="person" style={{color:'white'}}/>        
                     </Left>
                     <Content style={{flex:1}}>                        
-                        <Text style={{color:'white', fontWeight: 'bold'}}>{this.props.auth.user.firstname} {this.props.auth.user.lastname}</Text>                        
+                        <Text 
+                            style={{color:'white', fontWeight: 'bold'}} 
+                            onPress={() => navigation.navigate('Profile')}
+                        >
+                            {this.props.auth.user.firstname} {this.props.auth.user.lastname}
+                        </Text>                        
                     </Content>
                 </Header>
             );
@@ -62,7 +66,7 @@ class DrawerMenu extends Component {
                             <Icon name="person" style={{color:'grey'}}/>  
                         </Left>
                         <Body>
-                            <Text onPress={() => navigation.navigate('Customers')}>
+                            <Text onPress={() => navigation.navigate('CustomersList')}>
                                 Customers
                             </Text>
                         </Body>
@@ -79,7 +83,7 @@ class DrawerMenu extends Component {
 
         return (
             <Content>
-                {this._displayUserInfo()}                
+                {this._displayUserInfo(navigation)}                
                 <Content>
                     <List>
                         <ListItem avatar>
@@ -97,7 +101,7 @@ class DrawerMenu extends Component {
                                 <Icon name="briefcase" style={{color:'grey'}}/>  
                             </Left>
                             <Body>
-                                <Text onPress={() => navigation.navigate('My interventions')}>
+                                <Text onPress={() => navigation.navigate('InterventionsList')}>
                                     Interventions
                                 </Text>
                             </Body>
@@ -128,7 +132,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => { dispatch(logout()) }
+        logout: () => { dispatch(logout()) },        
     }
 }
 

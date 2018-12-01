@@ -67,27 +67,6 @@ export default function employees(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.CREATE_EMPLOYEE_REQ:
-            nextState = {
-                ...state,
-                isLoading: true,
-            }
-            return nextState || state;
-
-        case ActionTypes.CREATE_EMPLOYEE_OK:
-            nextState = {
-                ...state,
-                isLoading: false,
-            }
-            return nextState || state;
-
-        case ActionTypes.CREATE_EMPLOYEE_ERR:
-            nextState = {
-                ...state,
-                isLoading: false,
-            }
-            return nextState || state;
-
         case ActionTypes.UPDATE_EMPLOYEE_REQ:
             nextState = {
                 ...state,
@@ -109,25 +88,8 @@ export default function employees(state = initialState, action) {
             }
             return nextState || state;
 
-        case ActionTypes.DELETE_EMPLOYEE_REQ:
-            nextState = {
-                ...state,
-                isLoading:true,
-            }
-            return nextState || state;
-
-        case ActionTypes.DELETE_EMPLOYEE_OK:
-            nextState = {
-                ...state,
-                isLoading:false,
-            }
-            return nextState || state;
-
-        case ActionTypes.DELETE_EMPLOYEE_ERR:
-            nextState = {
-                ...state,
-                isLoading:false,
-            }
+        case ActionTypes.RESET_EMPLOYEE_REDUCER:
+            nextState = initialState
             return nextState || state;
 
         default:

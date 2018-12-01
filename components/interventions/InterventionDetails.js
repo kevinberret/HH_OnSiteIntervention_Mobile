@@ -1,40 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-
-import { Linking, View } from 'react-native';
+import { Linking } from 'react-native';
 
 import moment from 'moment';
 
 import openMap from 'react-native-open-maps';
 
-import { deleteIntervention } from '../../actions/interventions';
-
-import {
-    Container,
-    Content,
-    Text,
-    H1,
-    H2,
-    H3,
-    Button,
-    Right,
-    Left,
-    Body,
-    Icon,
-    Card,
-    CardItem
-} from "native-base";
-
+import { Container, Content, Text, Right, Icon, Card, CardItem } from "native-base";
 
 class InterventionDetails extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            isVisible:false
-        };
-    }
-
     _pressCall = (phoneNumber) => {
         const url=`tel://${phoneNumber}`
         Linking.openURL(url).catch(err => console.error('An error occurred', err));
@@ -89,23 +64,12 @@ class InterventionDetails extends Component {
                                 {moment(startTime).format("DD.MM.YY")} ({moment(startTime).format("HH:mm")}-{moment(endTime).format("HH:mm")})
                             </Text>
                         </CardItem>
-                        <CardItem>
+                        <CardItem footer bordered>
                             <Icon active name="navigate"/>
                             <Text
                                 onPress={() => openMap({travelType: 'drive', end:address})}
                             >
                                 Go there
-                            </Text>
-                            <Right>
-                                <Icon name="arrow-forward" />
-                            </Right>
-                        </CardItem>
-                        <CardItem footer bordered>
-                            <Icon active name="create"/>
-                            <Text
-                                onPress={() => this.props.navigation.navigate('Edit intervention')}
-                            >
-                                Edit intervention
                             </Text>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -124,11 +88,4 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getAllInterventions: (employeeId) => dispatch(getAllInterventions(employeeId)),
-        deleteIntervention: (link) => dispatch(deleteIntervention(link))
-    }
-}
-
-export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(InterventionDetails));
+export default withNavigation(connect(mapStateToProps, null)(InterventionDetails));

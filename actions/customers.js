@@ -1,5 +1,7 @@
 import ActionTypes from '../Store/actionTypes';
 
+import { showFlashMessage } from './utils';
+
 import SERVER_URL from '../config/config'
 
 export const get_all_customers_REQ = () => (
@@ -101,14 +103,19 @@ export const delete_customer_ERR = () => (
     }
 );
 
+export const reset_customer_reducer = () => (
+    {
+        type: ActionTypes.RESET_CUSTOMER_REDUCER
+    }
+);
+
 // functions
 export const getAllCustomers = () => {
     return async(dispatch, getState) => {
         const state = getState();
-
+        
         if(!state.customers.isLoading){
             dispatch(get_all_customers_REQ());
-
             fetch(
                 SERVER_URL+'api/customers',
                 {
@@ -116,7 +123,7 @@ export const getAllCustomers = () => {
                 }
             ).then(response => response.json())
             .then(responseData => {
-                dispatch(get_all_customers_OK(responseData._embedded.customers))
+                dispatch(get_all_customers_OK(responseData._embedded.customers))                
             })
             .catch((error) => {
                 dispatch(get_all_customers_ERR());
@@ -139,7 +146,7 @@ export const getCustomerById = (link) => {
                 }
             ).then(response => response.json())
             .then(responseData => {
-                dispatch(get_customer_by_id_OK(responseData._embedded.customers))
+                dispatch(get_customer_by_id_OK(responseData))
             })
             .catch((error) => {
                 dispatch(get_customer_by_id_ERR());
@@ -174,13 +181,16 @@ export const createCustomer = (customer) => {
             ).then(response => {
                 if(response.ok){
                     dispatch(create_customer_OK());
-                    getAllCustomers();
+                    dispatch(getAllCustomers());
+                    showFlashMessage('Success', 'Customer successfully created.', 'success');
                 }else{
                     dispatch(create_customer_ERR());
+                    showFlashMessage('Error', 'Impossible to create the customer.', 'danger');
                 }
             })
             .catch((error) => {
                 dispatch(create_customer_ERR());
+                showFlashMessage('Error', 'Impossible to create the customer.', 'danger');
             });
         }
     }
@@ -206,13 +216,16 @@ export const updateCustomer = (link, customer) => {
             ).then(response => {
                 if(response.ok){
                     dispatch(update_customer_OK());
-                    getAllCustomers();
+                    dispatch(getAllCustomers());
+                    showFlashMessage('Success', 'Customer successfully updated.', 'success');
                 }else{
                     dispatch(update_customer_ERR());
+                    showFlashMessage('Error', 'Impossible to update the customer.', 'danger');
                 }
             })
             .catch((error) => {
                 dispatch(update_customer_ERR());
+                showFlashMessage('Error', 'Impossible to update the customer.', 'danger');
             });
         }
     }
@@ -236,14 +249,23 @@ export const deleteCustomer = (link) => {
             ).then(response => {
                 if(response.ok){
                     dispatch(delete_customer_OK());
-                    getAllCustomers();
+                    dispatch(getAllCustomers());
+                    showFlashMessage('Success', 'Customer successfully deleted.', 'success');
                 }else{
                     dispatch(delete_customer_ERR());
+                    showFlashMessage('Error', 'Impossible to delete the customer.', 'danger');
                 }
             })
             .catch((error) => {
                 dispatch(delete_customer_ERR());
+                showFlashMessage('Error', 'Impossible to delete the customer.', 'danger');
             });
         }
     }
+}
+
+export const resetCustomerReducer = () => {
+    return async(dispatch, getState) => {
+        dispatch(reset_customer_reducer());
+    }    
 }
